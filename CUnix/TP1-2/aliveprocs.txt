@@ -1,0 +1,208 @@
+  PID TTY          TIME CMD
+    1 ?        00:00:02 systemd
+    2 ?        00:00:00 kthreadd
+    4 ?        00:00:00 kworker/0:0H
+    6 ?        00:00:00 ksoftirqd/0
+    7 ?        00:00:20 rcu_sched
+    8 ?        00:00:00 rcu_bh
+    9 ?        00:00:02 rcuos/0
+   10 ?        00:00:00 rcuob/0
+   11 ?        00:00:00 migration/0
+   12 ?        00:00:00 lru-add-drain
+   13 ?        00:00:00 watchdog/0
+   14 ?        00:00:00 cpuhp/0
+   15 ?        00:00:00 cpuhp/1
+   16 ?        00:00:00 watchdog/1
+   17 ?        00:00:00 migration/1
+   18 ?        00:00:00 ksoftirqd/1
+   20 ?        00:00:00 kworker/1:0H
+   21 ?        00:00:00 rcuos/1
+   22 ?        00:00:00 rcuob/1
+   23 ?        00:00:00 cpuhp/2
+   24 ?        00:00:00 watchdog/2
+   25 ?        00:00:00 migration/2
+   26 ?        00:00:00 ksoftirqd/2
+   28 ?        00:00:00 kworker/2:0H
+   29 ?        00:00:20 rcuos/2
+   30 ?        00:00:00 rcuob/2
+   31 ?        00:00:00 cpuhp/3
+   32 ?        00:00:00 watchdog/3
+   33 ?        00:00:00 migration/3
+   34 ?        00:00:00 ksoftirqd/3
+   36 ?        00:00:00 kworker/3:0H
+   37 ?        00:00:04 rcuos/3
+   38 ?        00:00:00 rcuob/3
+   39 ?        00:00:00 kdevtmpfs
+   40 ?        00:00:00 netns
+   41 ?        00:00:00 oom_reaper
+   42 ?        00:00:00 writeback
+   43 ?        00:00:00 kcompactd0
+   44 ?        00:00:00 ksmd
+   45 ?        00:00:00 khugepaged
+   46 ?        00:00:00 crypto
+   47 ?        00:00:00 kintegrityd
+   48 ?        00:00:00 bioset
+   49 ?        00:00:00 kblockd
+   55 ?        00:00:00 ata_sff
+   56 ?        00:00:00 md
+   57 ?        00:00:00 devfreq_wq
+   58 ?        00:00:00 watchdogd
+   60 ?        00:00:00 kauditd
+   61 ?        00:00:00 kswapd0
+   62 ?        00:00:00 vmstat
+   63 ?        00:00:00 bioset
+  110 ?        00:00:00 kthrotld
+  111 ?        00:00:00 acpi_thermal_pm
+  112 ?        00:00:00 scsi_eh_0
+  113 ?        00:00:00 scsi_tmf_0
+  114 ?        00:00:00 scsi_eh_1
+  115 ?        00:00:00 scsi_tmf_1
+  118 ?        00:00:00 dm_bufio_cache
+  119 ?        00:00:00 ipv6_addrconf
+  169 ?        00:00:00 bioset
+  170 ?        00:00:00 bioset
+  344 ?        00:00:01 kworker/3:1H
+  345 ?        00:00:00 kworker/0:1H
+  346 ?        00:00:00 kworker/1:1H
+  359 ?        00:00:01 jbd2/sda1-8
+  360 ?        00:00:00 ext4-rsv-conver
+  367 ?        00:00:00 kworker/2:1H
+  406 ?        00:00:00 i915/signal:0
+  407 ?        00:00:00 i915/signal:1
+  408 ?        00:00:00 i915/signal:2
+  409 ?        00:00:00 i915/signal:4
+  464 ?        00:00:01 systemd-journal
+  494 ?        00:00:00 systemd-udevd
+  496 ?        00:00:00 rpciod
+  497 ?        00:00:00 xprtiod
+  531 ?        00:00:00 irq/127-mei_me
+  532 ?        00:00:00 kmemstick
+  564 ?        00:00:00 jbd2/sda2-8
+  565 ?        00:00:00 jbd2/sda3-8
+  566 ?        00:00:00 ext4-rsv-conver
+  568 ?        00:00:00 ext4-rsv-conver
+  614 ?        00:00:00 auditd
+  616 ?        00:00:00 audispd
+  617 ?        00:00:00 rpc.gssd
+  622 ?        00:00:00 sedispatch
+  645 ?        00:00:00 mcelog
+  648 ?        00:00:00 rsyslogd
+  649 ?        00:00:01 rtkit-daemon
+  650 ?        00:26:05 avahi-daemon
+  651 ?        00:00:02 dbus-daemon
+  653 ?        00:00:00 chronyd
+  656 ?        00:00:00 avahi-daemon
+  666 ?        00:00:00 alsactl
+  667 ?        00:00:00 sssd
+  668 ?        00:00:00 ModemManager
+  670 ?        00:00:00 smartd
+  672 ?        00:00:16 irqbalance
+  675 ?        00:00:01 rngd
+  683 ?        00:00:05 gpm
+  685 ?        00:00:00 NetworkManager
+  691 ?        00:00:00 gssproxy
+  719 ?        00:00:03 sssd_be
+  720 ?        00:00:03 sssd_be
+  728 ?        00:00:01 sssd_autofs
+  729 ?        00:00:01 sssd_pam
+  730 ?        00:00:02 sssd_nss
+  732 ?        00:00:00 systemd-logind
+  733 ?        00:00:00 accounts-daemon
+  745 ?        00:00:00 polkitd
+  767 ?        00:00:00 dhclient
+  902 ?        00:00:00 cfg80211
+ 1272 ?        00:00:00 sshd
+ 1273 ?        00:00:07 docker-containe
+ 1274 ?        00:01:13 dockerd-current
+ 1298 ?        00:00:00 inotify.sh
+ 1322 ?        00:00:00 nfsiod
+ 1352 ?        00:00:00 NFSv4 callback
+ 1354 ?        00:00:00 NFSv4 callback
+ 1364 ?        00:00:00 bioset
+ 1367 ?        00:00:00 loop0
+ 1370 ?        00:00:00 bioset
+ 1371 ?        00:00:00 loop1
+ 1375 ?        00:00:00 kdmflush
+ 1378 ?        00:00:00 NFSv4 callback
+ 1382 ?        00:00:00 bioset
+ 1383 ?        00:00:00 kcopyd
+ 1384 ?        00:00:00 bioset
+ 1385 ?        00:00:00 dm-thin
+ 1386 ?        00:00:00 bioset
+ 1577 ?        00:00:00 libvirtd
+ 1580 ?        00:00:00 atd
+ 1581 ?        00:00:00 crond
+ 1598 ?        00:00:00 lightdm
+ 2067 ?        00:00:00 upowerd
+ 2106 ?        00:00:35 udisksd
+ 2150 ?        00:00:00 colord
+ 3768 ?        00:01:25 packagekitd
+ 6611 tty1     00:00:50 Xorg
+ 8132 ?        00:00:00 inotifywait
+10217 ?        00:00:01 kworker/u8:2
+11023 ?        00:00:00 kworker/1:0
+11530 ?        00:00:00 lightdm
+11554 ?        00:00:00 gnome-keyring-d
+11563 ?        00:00:00 kworker/0:3
+11567 ?        00:00:00 systemd
+11574 ?        00:00:00 (sd-pam)
+11588 ?        00:00:00 cinnamon-sessio
+11603 ?        00:00:00 dbus-daemon
+11666 ?        00:00:00 imsettings-daem
+11669 ?        00:00:00 gvfsd
+11674 ?        00:00:00 gvfsd-fuse
+11746 ?        00:00:00 ssh-agent
+11788 ?        00:00:00 at-spi-bus-laun
+11793 ?        00:00:00 dbus-daemon
+11795 ?        00:00:00 at-spi2-registr
+11809 ?        00:00:01 cinnamon-settin
+11816 ?        00:00:08 gnome-terminal-
+11827 ?        00:00:00 dconf-service
+11842 pts/0    00:00:00 ur1shell
+11843 ?        00:00:00 gvfs-udisks2-vo
+11847 ?        00:00:00 gvfs-gphoto2-vo
+11851 ?        00:00:00 gvfs-afc-volume
+11856 ?        00:00:00 gvfs-goa-volume
+11860 ?        00:00:00 goa-daemon
+11868 ?        00:00:00 goa-identity-se
+11873 ?        00:00:00 gvfs-mtp-volume
+11879 ?        00:00:00 cinnamon-launch
+11894 ?        00:00:00 pulseaudio
+11915 ?        00:00:36 cinnamon
+11926 ?        00:00:00 csd-printer
+11934 ?        00:00:00 abrt-applet
+11936 ?        00:00:00 nm-applet
+11938 ?        00:00:00 tracker-miner-u
+11940 ?        00:00:00 blueman-applet
+11947 ?        00:00:00 tracker-store
+11952 ?        00:00:00 tracker-miner-a
+11958 ?        00:00:00 zeitgeist-datah
+11967 ?        00:00:00 tracker-miner-f
+11974 ?        00:00:03 gnome-software
+11977 ?        00:00:02 nemo
+11985 ?        00:00:00 cinnamon-killer
+11989 ?        00:00:00 polkit-gnome-au
+12004 ?        00:00:00 zeitgeist-daemo
+12007 ?        00:00:00 tracker-extract
+12058 ?        00:00:00 zeitgeist-fts
+12082 ?        00:00:00 gvfsd-trash
+12145 ?        00:00:00 abrt-dbus
+12169 ?        00:00:00 gvfsd-metadata
+12239 ?        00:00:00 cinnamon-screen
+12407 ?        00:00:00 gconfd-2
+12512 ?        00:00:00 gvfsd-network
+12569 ?        00:00:00 gvfsd-dnssd
+12753 ?        00:00:00 kworker/3:1
+12774 ?        00:00:00 kworker/u8:1
+12818 ?        00:00:00 kworker/u8:3
+12882 ?        00:01:30 firefox
+12959 ?        00:00:00 kworker/0:0
+13039 ?        00:00:00 kworker/3:0
+13040 ?        00:00:00 kworker/2:1
+13048 ?        00:00:00 kworker/1:2
+13100 ?        00:00:00 kworker/2:0
+13107 ?        00:00:00 kworker/0:1
+13108 ?        00:00:00 kworker/0:2
+13208 ?        00:00:00 kworker/u8:0
+13215 ?        00:00:00 kworker/2:2
+13218 pts/0    00:00:00 ps

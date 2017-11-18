@@ -70,8 +70,7 @@ int main()
 
       // Print file list
     case 5:
-
-      // TO BE COMPLETED
+      print_list(filelist);
 
       break;
     }

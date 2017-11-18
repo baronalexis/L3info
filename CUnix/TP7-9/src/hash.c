@@ -62,9 +62,18 @@ int search_word(char word[], listfile_entry * filelist, hash_table * htable_ptr)
 */
 void print_table(hash_table * htable_ptr, listfile_entry * filelist)
 {
-
-   // TO BE COMPLETED
-
+  int i;
+  int j = 0;
+  word_entry * temp = htable_ptr[j].htable->first_word;
+  for (i = 0; i < htable_ptr->hsize; i++) {
+    if(htable_ptr->htable->first_word != NULL) {
+      printf("Hashcode: %d", i);
+      while(temp->next != htable_ptr[j].htable->last_word) {
+        if(filelist[temp->in_file].loaded == 1)
+        printf("%s -> ",temp->word);
+      }
+    }
+  }
 }
 
 

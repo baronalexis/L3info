@@ -60,6 +60,7 @@ int add_file(char filename[],listfile_entry * filelist, hash_table * htable_ptr)
   int i;
 
 
+  file = fopen(filename, "r");
 
   for (i = 0; i < MAX_FILES; i++) {
     if(strcmp(filename, filelist[i].filename) == 0 && filelist[i].loaded) {
@@ -74,7 +75,6 @@ int add_file(char filename[],listfile_entry * filelist, hash_table * htable_ptr)
   if(file == NULL) {
     return_value = -1;
   }
-  file = fopen(filename, "r");
 
   //gérer la filelist
 
@@ -126,9 +126,10 @@ int remove_file(char filename[], listfile_entry * filelist, hash_table * htable_
 */
 void print_list(listfile_entry * filelist)
 {
-
-  // TO BE COMPLETED
-
+  int i;
+  for (i = 0;i < MAX_FILES; i++) {
+    printf("%d -> Filename : %s, Status: %d\n", i, filelist[i].filename, filelist[i].loaded);
+  }
 }
 
 /**
@@ -138,6 +139,7 @@ parameters :
    filelist   : pointer to table of files
 */
 void free_filelist(listfile_entry * filelist)
+
 {
   // TO BE COMPLETED
 }

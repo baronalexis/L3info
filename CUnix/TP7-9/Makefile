@@ -4,7 +4,7 @@ CC = gcc
 EXEC = bin/word_search_engine
 
 all:
-	$(EXEC)
+	make $(EXEC)
 
 
 bin/word_search_engine: obj/file.o obj/hash.o obj/main.o

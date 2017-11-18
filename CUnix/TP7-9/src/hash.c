@@ -60,17 +60,22 @@ int search_word(char word[], listfile_entry * filelist, hash_table * htable_ptr)
    htable_ptr : pointer to hash table
    filelist   : pointer to table of files
 */
+
 void print_table(hash_table * htable_ptr, listfile_entry * filelist)
 {
   int i;
-  int j = 0;
-  word_entry * temp = htable_ptr[j].htable->first_word;
   for (i = 0; i < htable_ptr->hsize; i++) {
-    if(htable_ptr->htable->first_word != NULL) {
+    word_entry *temp = htable_ptr->htable[i].first_word;
+    if(temp != NULL) {
       printf("Hashcode: %d", i);
-      while(temp->next != htable_ptr[j].htable->last_word) {
-        if(filelist[temp->in_file].loaded == 1)
-        printf("%s -> ",temp->word);
+      while(temp != NULL) {
+        // if(filelist[temp->in_file].loaded == 1) {
+        printf("[%s]", temp->word);
+        temp = temp->next;
+        if (temp != NULL)
+        {
+          printf("->");
+        }
       }
     }
   }

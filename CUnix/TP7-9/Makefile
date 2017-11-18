@@ -3,8 +3,7 @@ CFLAGS = -Wall -g
 CC = gcc
 EXEC = bin/word_search_engine
 
-all:
-	make $(EXEC)
+all: $(EXEC)
 
 
 bin/word_search_engine: obj/file.o obj/hash.o obj/main.o
@@ -12,15 +11,15 @@ bin/word_search_engine: obj/file.o obj/hash.o obj/main.o
 
 
 obj/file.o: src/file.c
-	$(CC) -c -o obj/file.o src/file.c -I ./include
+	$(CC) -o obj/file.o -c src/file.c -I ./include
 
 
 obj/hash.o: src/hash.c
-	$(CC) -c -o obj/hash.o src/hash.c -I ./include
+	$(CC) -o obj/hash.o -c src/hash.c -I ./include
 
 
 obj/main.o: src/main.c
-	$(CC) -c -o obj/main.o src/main.c -I ./include
+	$(CC) -o obj/main.o -c src/main.c -I ./include
 
 
 listing:

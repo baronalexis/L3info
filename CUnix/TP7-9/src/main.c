@@ -10,9 +10,12 @@
 int main()
 {
   // create hash table
-  hash_table *hash_tablet = create_table();
+  hash_table *hashtable = create_table();
   // create filelist array
   listfile_entry *filelist = create_filelist(MAX_FILES);
+
+  char str[50];
+
 
   // display menu
   while (1) {
@@ -42,30 +45,31 @@ int main()
 
       // Load a file in dictionary
     case 1:
-
-      // TO BE COMPLETED
-
+      fprintf(stderr, "Enter the file name:\n");
+      scanf("%s", str);
+      add_file(str, filelist, hashtable);
       break;
 
       // Search a word in dictionary
     case 2:
-
-      // TO BE COMPLETED
-
+      fprintf(stderr, "Enter the word you are looking for:\n");
+      scanf("%s", str);
+      search_word(str, filelist, hashtable);
       break;
 
       // Remove file from dictionary
     case 3:
-
-      // TO BE COMPLETED
+      printf("This are the loaded files: \n");
+      //function displaying all the loaded files
+      printf("Enter the file you want to remove:\n");
+      scanf("%s", str);
+      remove_file(str, filelist, hashtable);
 
       break;
 
       // Print dictionary
     case 4:
-
-      // TO BE COMPLETED
-
+      print_table(hashtable, filelist);
       break;
 
       // Print file list

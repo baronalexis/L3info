@@ -7,7 +7,7 @@ all: $(EXEC)
 
 
 bin/word_search_engine: obj/file.o obj/hash.o obj/main.o
-	$(CC) -o ./bin/word_search_engine obj/file.o obj/hash.o obj/main.o -I ./include $(CFLAG)
+	$(CC) -o ./bin/word_search_engine obj/file.o obj/hash.o obj/main.o
 
 
 obj/file.o: src/file.c

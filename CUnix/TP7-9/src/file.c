@@ -78,12 +78,11 @@ int add_file(char filename[],listfile_entry * filelist, hash_table * htable_ptr)
     return_value = -1;
   }
 
-  //gérer la filelist
+  add_filelist(filename, filelist);
 
   while (fscanf(file, "%s", buffer) == 1) {
     int hash = hashcode(buffer, MAX_LENGTH);
     printf("%d->%s\n", hash, buffer);
-    add_filelist(filename, filelist);
     add_word(htable_ptr, buffer, hash);
     }
   if(feof(file)) {
@@ -171,11 +170,13 @@ void add_word(hash_table * htable_ptr, char * buffer, int hash) {
   if(current == NULL) {
     current = newelt;
   }
-  while (current->next != NULL)
-  {
-    current = current->next;
+  else {
+    while (current->next != NULL)
+    {
+      current = current->next;
+    }
+    current->next = newelt;
   }
-  current->next = newelt;
 }
 
 void add_filelist(char * filename, listfile_entry * filelist) {

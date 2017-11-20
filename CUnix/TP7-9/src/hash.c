@@ -67,7 +67,7 @@ void print_table(hash_table * htable_ptr, listfile_entry * filelist)
   for (i = 0; i < htable_ptr->hsize; i++) {
     word_entry *temp = htable_ptr->htable[i].first_word;
     if(temp != NULL) {
-      printf("Hashcode: %d", i);
+      printf("Hashcode: %d\n", i);
       while(temp != NULL) {
         // if(filelist[temp->in_file].loaded == 1) {
         printf("[%s]", temp->word);
@@ -80,6 +80,7 @@ void print_table(hash_table * htable_ptr, listfile_entry * filelist)
     }
   }
 }
+
 
 
 /**

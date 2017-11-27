@@ -1,0 +1,158 @@
+fsm chenillard @[ 50 , 50 , 850 , 650 ]
+{ out L [ 8 ] @[ 864 , 187 , 36 , 15 ]
+;
+codeWidth = 4 ; reset = S0 ; state S0 = "0000" @[ 112 , 117 , 30 , 30 ]
+{
+commands @[ 157 , 132 , 86 , 22 ]
+{
+L = "00000001" ;
+}
+transitions {
+S0 -> S1 when default @[ 208 , 98 , 43 , 22 ]
+;
+}
+}
+state S1 = "0001" @[ 300 , 119 , 30 , 30 ]
+{
+commands @[ 345 , 134 , 86 , 22 ]
+{
+L = "00000010" ;
+}
+transitions {
+S1 -> S2 when default @[ 380 , 92 , 43 , 22 ]
+;
+}
+}
+state S2 = "0010" @[ 454 , 120 , 30 , 30 ]
+{
+commands @[ 499 , 135 , 86 , 22 ]
+{
+L = "00000100" ;
+}
+transitions {
+S2 -> S3 when default @[ 543 , 90 , 43 , 22 ]
+;
+}
+}
+state S3 = "0011" @[ 611 , 121 , 30 , 30 ]
+{
+commands @[ 656 , 136 , 86 , 22 ]
+{
+L = "00001000" ;
+}
+transitions {
+S3 -> S4 when default @[ 702 , 93 , 43 , 22 ]
+;
+}
+}
+state S4 = "0100" @[ 778 , 125 , 30 , 30 ]
+{
+commands @[ 823 , 140 , 93 , 22 ]
+{
+L = "000010000" ;
+}
+transitions {
+S4 -> S5 when default @[ 818 , 210 , 43 , 22 ]
+;
+}
+}
+state S5 = "0101" @[ 783 , 253 , 30 , 30 ]
+{
+commands @[ 828 , 268 , 86 , 22 ]
+{
+L = "00100000" ;
+}
+transitions {
+S5 -> S6 when default @[ 813 , 322 , 43 , 22 ]
+;
+}
+}
+state S6 = "0110" @[ 785 , 357 , 30 , 30 ]
+{
+commands @[ 830 , 372 , 86 , 22 ]
+{
+L = "01000000" ;
+}
+transitions {
+S6 -> S7 when default @[ 809 , 441 , 43 , 22 ]
+;
+}
+}
+state S7 = "0111" @[ 790 , 484 , 30 , 30 ]
+{
+commands @[ 835 , 499 , 86 , 22 ]
+{
+L = "10000000" ;
+}
+transitions {
+S7 -> S8 when default @[ 707 , 537 , 43 , 22 ]
+;
+}
+}
+state S8 = "1000" @[ 601 , 490 , 30 , 30 ]
+{
+commands @[ 593 , 543 , 86 , 22 ]
+{
+L = "01000000" ;
+}
+transitions {
+S8 -> S9 when default @[ 521 , 532 , 43 , 22 ]
+;
+}
+}
+state S9 = "1001" @[ 430 , 492 , 30 , 30 ]
+{
+commands @[ 416 , 546 , 86 , 22 ]
+{
+L = "00100000" ;
+}
+transitions {
+S9 -> S10 when default @[ 368 , 532 , 43 , 22 ]
+;
+}
+}
+state S10 = "1010" @[ 290 , 496 , 30 , 30 ]
+{
+commands @[ 278 , 553 , 93 , 22 ]
+{
+L = "000010000" ;
+}
+transitions {
+S10 -> S11 when default @[ 214 , 551 , 43 , 22 ]
+;
+}
+}
+state S11 = "1011" @[ 128 , 497 , 30 , 30 ]
+{
+commands @[ 173 , 512 , 86 , 22 ]
+{
+L = "00001000" ;
+}
+transitions {
+S11 -> S12 when default @[ 106 , 456 , 43 , 22 ]
+;
+}
+}
+state S12 = "1100" @[ 105 , 365 , 30 , 30 ]
+{
+commands @[ 148 , 379 , 86 , 22 ]
+{
+L = "00000100" ;
+}
+transitions {
+S12 -> S13 when default @[ 76 , 331 , 43 , 22 ]
+;
+}
+}
+state S13 = "1101" @[ 92 , 240 , 30 , 30 ]
+{
+commands @[ 135 , 255 , 86 , 22 ]
+{
+L = "00000010" ;
+}
+transitions {
+S13 -> S0 when default @[ 92 , 186 , 43 , 22 ]
+;
+}
+}
+}

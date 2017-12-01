@@ -10,14 +10,16 @@
 // inner functions declarations
 // ------------------------------------------------------------------------
 
-int filelist_not_full(listfile_entry *);
-void add_word(hash_table *, char *, int);
-void add_filelist(char *, listfile_entry *);
+word_entry * add_word(char *, int, word_list *);
+void add_filelist(char *, listfile_entry *, int);
+int find_free_index(listfile_entry *, char *);
+
+
+
 
 //------------------------------------------------------------------------
 // global functions definitions
 //------------------------------------------------------------------------
-
 /**
    Create and initialize file table of capacity maxfiles
 
@@ -28,8 +30,13 @@ void add_filelist(char *, listfile_entry *);
  */
 listfile_entry *create_filelist(int maxfiles)
 {
-  listfile_entry *listfile_ptr;
+  listfile_entry *listfile_ptr = NULL;
   listfile_ptr = (listfile_entry*)malloc(sizeof(listfile_entry) * maxfiles);
+  for (int i = 0; i < maxfiles; i++) {
+    strcpy(listfile_ptr[i].filename, "");
+    listfile_ptr[i].loaded = 0;
+  }
+
   return listfile_ptr;
 }
 
@@ -56,47 +63,33 @@ int add_file(char filename[],listfile_entry * filelist, hash_table * htable_ptr)
 {
   FILE *file;
   char buffer[MAX_LENGTH];
-
-  int return_value;
-  int i;
-
+  int index = find_free_index(filelist,filename);
 
   file = fopen(filename, "r");
 
-  for (i = 0; i < MAX_FILES; i++) {
-    if(strcmp(filename, filelist[i].filename) == 0 && filelist[i].loaded) {
-      printf("File already loaded !\n");
-      return_value = 1;
-    }
-  }
-
-  if(filelist_not_full(filelist) == 0) {
-    return_value = 2;
-  }
+	if(index == -1) {
+		return 1;
+	}
+	if(index == -2) {
+		return 2;
+	}
 
   if(file == NULL) {
-    return_value = -1;
+    return -1;
   }
 
-  add_filelist(filename, filelist);
-
+  add_filelist(filename, filelist, index);
   while (fscanf(file, "%s", buffer) == 1) {
     int hash = hashcode(buffer, MAX_LENGTH);
     printf("%d->%s\n", hash, buffer);
-    add_word(htable_ptr, buffer, hash);
-    }
+    add_word(buffer, index, &(htable_ptr->htable[hash]));
+  }
+
   if(feof(file)) {
-    return_value = 0;
+		return 0;
+  } else {
+		return -2;
   }
-  else {
-    return_value = -2;
-  }
-
-
-
-
-
-  return return_value; // all fine
 }
 
 /**
@@ -127,8 +120,7 @@ int remove_file(char filename[], listfile_entry * filelist, hash_table * htable_
 */
 void print_list(listfile_entry * filelist)
 {
-  int i;
-  for (i = 0;i < MAX_FILES; i++) {
+  for (int i = 0; i < MAX_FILES; i++) {
       printf("%d -> Filename : %s, Status: %d\n", i, filelist[i].filename, filelist[i].loaded);
   }
 }
@@ -140,9 +132,8 @@ parameters :
    filelist   : pointer to table of files
 */
 void free_filelist(listfile_entry * filelist)
-
 {
-  // TO BE COMPLETED
+	free(filelist);
 }
 
 // ************************************************************************
@@ -158,35 +149,54 @@ int filelist_not_full(listfile_entry * filelist) {
   return 1;
 }
 
-void add_word(hash_table * htable_ptr, char * buffer, int hash) {
-  word_entry * newelt = (word_entry*)malloc(sizeof(word_entry));
-  if(newelt != NULL) {
-    strcpy(newelt->word, buffer);
-    newelt->in_file = 0;
-    newelt->times = 1;
-    newelt->next = NULL;
-  }
-  word_entry *current = htable_ptr->htable[hash].first_word;
-  if(current == NULL) {
-    current = newelt;
-  }
-  else {
-    while (current->next != NULL)
-    {
-      current = current->next;
-    }
-    current->next = newelt;
-  }
+word_entry* add_word(char* name, int fileindex,word_list* list) {
+
+  word_entry* newelt = (word_entry*)malloc(sizeof(word_entry));
+
+	if(newelt != NULL) {
+		strcpy(newelt->word,name);
+		newelt->in_file= fileindex;
+		newelt->times = 0;
+		newelt->next = NULL;
+
+		if (list->last_word != NULL) {
+			list->last_word->next = newelt;
+		}else {
+			list->first_word = newelt;
+		}
+		list->last_word = newelt;
+	}
+
+	return newelt;
 }
 
-void add_filelist(char * filename, listfile_entry * filelist) {
-  int i;
-  int ok = 0;
-  for (i = 0; i < MAX_FILES; i++) {
-    if(filelist[i].loaded == 0 && ok == 0) {
-      strcpy(filelist[i].filename, filename);
-      filelist[i].loaded = 1;
-      ok = 1;
-    }
-  }
+
+
+void add_filelist(char * filename, listfile_entry * filelist, int index) {
+      strcpy(filelist[index].filename, filename);
+      filelist[index].loaded = 1;
+}
+
+
+/*
+	returns:
+		-2: if filelist full
+		-1: if file already present in filelist
+		else:
+			free index if free space
+*/
+int find_free_index(listfile_entry * list, char* word) {
+
+	int index = 0;
+
+	while(index < MAX_FILES) {
+		if(strcmp(list[index].filename, word) == 0) {
+			return -1;
+		}
+		if(list[index].loaded == 0) {
+			return index;
+		}
+		index++;
+	}
+	return -2;
 }

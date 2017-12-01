@@ -42,12 +42,27 @@ int main()
     // TO BE COMPLETED
 
     switch (choice) {
-
       // Load a file in dictionary
     case 1:
       fprintf(stderr, "Enter the file name:\n");
       scanf("%s", str);
-      add_file(str, filelist, hashtable);
+      int ret;
+      ret = add_file(str, filelist, hashtable);
+
+      switch(ret) {
+        case -2:
+          printf("Allocation error\n");
+          break;
+        case -1:
+          printf("File doesn't exist or cant be read\n");
+          break;
+        case 1:
+          printf("File already loaded\n");
+          break;
+        case 2:
+          printf("No space left in filelist, too many files loaded\n");
+          break;
+      }
       break;
 
       // Search a word in dictionary
@@ -82,7 +97,7 @@ int main()
 
   }
 
-  // the end : free allocated memory
+  free_filelist(filelist);
 
   // TO BE COMPLETED
 

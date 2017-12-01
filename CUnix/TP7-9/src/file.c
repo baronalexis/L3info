@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../include/types.h"
-#include "../include/functions.h" // extern functions declarations
+#include "types.h"
+#include "functions.h" // extern functions declarations
 
 // ------------------------------------------------------------------------
 // inner functions declarations
@@ -140,14 +140,6 @@ void free_filelist(listfile_entry * filelist)
 // inner functions
 // ************************************************************************
 
-/**
-  returns:
-    1 if space left in the filelist
-    0 if filelist is full
-**/
-int filelist_not_full(listfile_entry * filelist) {
-  return 1;
-}
 
 word_entry* add_word(char* name, int fileindex,word_list* list) {
 

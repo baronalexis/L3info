@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/types.h"
-#include "../include/functions.h"
+#include "types.h"
+#include "functions.h"
 
 //------------------------------------------------------------------------
 

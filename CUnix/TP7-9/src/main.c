@@ -7,6 +7,10 @@
 
 //------------------------------------------------------------------------
 
+void display_loaded_files(listfile_entry *);
+
+//------------------------------------------------------------------------
+
 int main()
 {
   // create hash table
@@ -14,6 +18,7 @@ int main()
   // create filelist array
   listfile_entry *filelist = create_filelist(MAX_FILES);
 
+  int ret;
   char str[50];
 
 
@@ -46,7 +51,7 @@ int main()
     case 1:
       fprintf(stderr, "Enter the file name:\n");
       scanf("%s", str);
-      int ret;
+
       ret = add_file(str, filelist, hashtable);
 
       switch(ret) {
@@ -76,9 +81,18 @@ int main()
     case 3:
       printf("This are the loaded files: \n");
       //function displaying all the loaded files
+      display_loaded_files(filelist);
       printf("Enter the file you want to remove:\n");
       scanf("%s", str);
-      remove_file(str, filelist, hashtable);
+
+      ret = remove_file(str, filelist, hashtable);
+      switch (ret) {
+        case 0:
+          printf("File successfully removed !\n");
+          break;
+        case -1:
+          printf("File isn't loaded !\n");
+      }
 
       break;
 
@@ -113,4 +127,15 @@ int hashcode(char word[], int size)
     hash += *word++;
   }
   return (hash % size);
+}
+
+
+void display_loaded_files(listfile_entry * filelist) {
+  printf("\n");
+  for (int i = 0; i < MAX_FILES; i++) {
+    if(filelist[i].loaded == 1) {
+        printf("%s\n", filelist[i].filename);
+    }
+  }
+  printf("\n");
 }

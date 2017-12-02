@@ -10,9 +10,11 @@
 // inner functions declarations
 // ------------------------------------------------------------------------
 
-word_entry * add_word(char *, int, word_list *);
+void add_word(char *, int, word_list *);
 void add_filelist(char *, listfile_entry *, int);
 int find_free_index(listfile_entry *, char *);
+void remove_words_from_file(word_entry **, int);
+int is_word_loaded(char *, int, word_list *);
 
 
 
@@ -80,9 +82,16 @@ int add_file(char filename[],listfile_entry * filelist, hash_table * htable_ptr)
 
   add_filelist(filename, filelist, index);
   while (fscanf(file, "%s", buffer) == 1) {
+    for(int i = 0; buffer[i]; i++){
+      buffer[i] = tolower(buffer[i]);
+    }
     int hash = hashcode(buffer, MAX_LENGTH);
-    printf("%d->%s\n", hash, buffer);
-    add_word(buffer, index, &(htable_ptr->htable[hash]));
+    // int word_loaded = is_word_loaded(buffer, index, &(htable_ptr->htable[hash]));
+    // if(word_loaded == 0) {
+      add_word(buffer, index, &(htable_ptr->htable[hash]));
+    // } else {
+    //   //inc_times_word(buffer);
+    // }
   }
 
   if(feof(file)) {
@@ -107,9 +116,16 @@ int add_file(char filename[],listfile_entry * filelist, hash_table * htable_ptr)
 int remove_file(char filename[], listfile_entry * filelist, hash_table * htable_ptr)
 {
 
-  // TO BE COMPLETED
-
-  return 0;
+  for (int i = 0; i < MAX_FILES; i++) {
+    if(strcmp(filename, filelist[i].filename) == 0 && filelist[i].loaded == 1) {
+      filelist[i].loaded = 0;
+      // for (int y = 0; i < MAX_ENTRIES; y++) {
+      //   remove_words_from_file(&(htable_ptr->htable[y].first_word), i);
+      // }
+      return 0;
+    }
+  }
+  return -1;
 }
 
 /*
@@ -124,6 +140,8 @@ void print_list(listfile_entry * filelist)
       printf("%d -> Filename : %s, Status: %d\n", i, filelist[i].filename, filelist[i].loaded);
   }
 }
+
+
 
 /**
    free file table
@@ -141,14 +159,66 @@ void free_filelist(listfile_entry * filelist)
 // ************************************************************************
 
 
-word_entry* add_word(char* name, int fileindex,word_list* list) {
+
+
+void remove_words_from_file(word_entry **head, int filelist_position)
+{
+
+
+    // If linked list is empty
+   if (head == NULL || *head == NULL)
+      return;
+
+    // Store head node
+    word_entry* current = *head;
+    word_entry* pre = NULL;
+
+    if (current->in_file == filelist_position)
+    {
+      if (current->next == NULL)
+      {
+        free(current);
+        *head = NULL;
+      }
+      else
+      {
+        *head = current->next;
+        free(current);
+      }
+      return;
+    }
+    while (current != NULL)
+    {
+      pre = current;
+      current = current->next;
+      if (current != NULL && current->in_file == filelist_position)
+      {
+        if (current->next == NULL)
+        {
+          pre->next = NULL;
+          free(current);
+        }
+        else
+        {
+          pre->next = current->next;
+          free(current);
+        }
+        return;
+      }
+    }
+    return;
+}
+
+
+
+void add_word(char* name, int fileindex, word_list* list) {
 
   word_entry* newelt = (word_entry*)malloc(sizeof(word_entry));
 
 	if(newelt != NULL) {
 		strcpy(newelt->word,name);
-		newelt->in_file= fileindex;
-		newelt->times = 0;
+		newelt->in_file = fileindex;
+		newelt->times = 1;
 		newelt->next = NULL;
 
 		if (list->last_word != NULL) {
@@ -158,8 +228,6 @@ word_entry* add_word(char* name, int fileindex,word_list* list) {
 		}
 		list->last_word = newelt;
 	}
-
-	return newelt;
 }
 
 

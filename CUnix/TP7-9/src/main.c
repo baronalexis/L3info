@@ -74,7 +74,10 @@ int main()
     case 2:
       fprintf(stderr, "Enter the word you are looking for:\n");
       scanf("%s", str);
-      search_word(str, filelist, hashtable);
+      ret = search_word(str, filelist, hashtable);
+      if (ret == 0) {
+        printf("Word not found !\n");
+      }
       break;
 
       // Remove file from dictionary
@@ -112,8 +115,7 @@ int main()
   }
 
   free_filelist(filelist);
-
-  // TO BE COMPLETED
+  free_table(hashtable);
 
   return 0;
 }

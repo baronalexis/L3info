@@ -13,8 +13,9 @@
 void add_word(char *, int, word_list *);
 void add_filelist(char *, listfile_entry *, int);
 int find_free_index(listfile_entry *, char *);
-void remove_words_from_file(word_entry **, int);
+void remove_words_from_file(word_entry **, word_entry **, int);
 int is_word_loaded(char *, int, word_list *);
+void inc_times_word(char *, int, word_list *);
 
 
 
@@ -86,17 +87,19 @@ int add_file(char filename[],listfile_entry * filelist, hash_table * htable_ptr)
       buffer[i] = tolower(buffer[i]);
     }
     int hash = hashcode(buffer, MAX_LENGTH);
-    // int word_loaded = is_word_loaded(buffer, index, &(htable_ptr->htable[hash]));
-    // if(word_loaded == 0) {
+    int word_loaded = is_word_loaded(buffer, index, &(htable_ptr->htable[hash]));
+
+    if(word_loaded == 0) {
       add_word(buffer, index, &(htable_ptr->htable[hash]));
-    // } else {
-    //   //inc_times_word(buffer);
-    // }
+    }
   }
 
+
   if(feof(file)) {
+    fclose(file);
 		return 0;
   } else {
+    fclose(file);
 		return -2;
   }
 }
@@ -119,9 +122,9 @@ int remove_file(char filename[], listfile_entry * filelist, hash_table * htable_
   for (int i = 0; i < MAX_FILES; i++) {
     if(strcmp(filename, filelist[i].filename) == 0 && filelist[i].loaded == 1) {
       filelist[i].loaded = 0;
-      // for (int y = 0; i < MAX_ENTRIES; y++) {
-      //   remove_words_from_file(&(htable_ptr->htable[y].first_word), i);
-      // }
+      for (int y = 0; y < MAX_ENTRIES; y++) {
+        remove_words_from_file(&(htable_ptr->htable[y].first_word), &(htable_ptr->htable[y].last_word), i);
+      }
       return 0;
     }
   }
@@ -158,56 +161,63 @@ void free_filelist(listfile_entry * filelist)
 // inner functions
 // ************************************************************************
 
+/*
+	returns:
+    1: if word aleady loaded and increments his times value
+		0: if word isn't already loaded
+*/
 
 
 
-void remove_words_from_file(word_entry **head, int filelist_position)
+int is_word_loaded(char word[], int index, word_list* list) {
+
+  word_entry * temp = list->first_word;
+
+  while(temp != NULL) {
+    if (strcmp(temp->word,word) == 0 && temp->in_file == index) {
+      temp->times ++;
+      return 1;
+    }
+    temp = temp->next;
+  }
+  return 0;
+}
+
+
+
+void remove_words_from_file(word_entry **head, word_entry **tail, int filelist_position)
 {
 
-
-    // If linked list is empty
-   if (head == NULL || *head == NULL)
-      return;
-
-    // Store head node
-    word_entry* current = *head;
-    word_entry* pre = NULL;
-
-    if (current->in_file == filelist_position)
-    {
-      if (current->next == NULL)
-      {
-        free(current);
-        *head = NULL;
-      }
-      else
-      {
-        *head = current->next;
-        free(current);
-      }
-      return;
-    }
-    while (current != NULL)
-    {
-      pre = current;
-      current = current->next;
-      if (current != NULL && current->in_file == filelist_position)
-      {
-        if (current->next == NULL)
-        {
-          pre->next = NULL;
-          free(current);
-        }
-        else
-        {
-          pre->next = current->next;
-          free(current);
-        }
-        return;
-      }
-    }
+  word_entry* current = *head;
+  word_entry* pre = NULL;
+  if (head || !(*head))
     return;
+
+  while (current->in_file != filelist_position && current->next != NULL)
+  {
+    pre = current;
+    current = current->next;
+  }
+
+  if (current->in_file == filelist_position)
+  {
+    if (pre)
+    {
+      *head = current->next;
+    }
+    else if(&current == tail) {
+
+      *tail = pre->next;
+    }
+    else
+    {
+      pre->next = current->next;
+    }
+    free(current);
+  }
 }
+
+
 
 
 

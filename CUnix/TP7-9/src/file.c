@@ -88,7 +88,6 @@ int add_file(char filename[],listfile_entry * filelist, hash_table * htable_ptr)
     }
     int hash = hashcode(buffer, MAX_LENGTH);
     int word_loaded = is_word_loaded(buffer, index, &(htable_ptr->htable[hash]));
-
     if(word_loaded == 0) {
       add_word(buffer, index, &(htable_ptr->htable[hash]));
     }
@@ -190,30 +189,27 @@ void remove_words_from_file(word_entry **head, word_entry **tail, int filelist_p
 
   word_entry* current = *head;
   word_entry* pre = NULL;
-  if (head || !(*head))
-    return;
 
-  while (current->in_file != filelist_position && current->next != NULL)
-  {
-    pre = current;
-    current = current->next;
+  while(current != NULL && current->in_file == filelist_position) {
+    *head = current->next;
+    free(current);
+    current = *head;
   }
 
-  if (current->in_file == filelist_position)
-  {
-    if (pre)
-    {
-      *head = current->next;
+  while(current != NULL) {
+    while (current != NULL && current->in_file != filelist_position) {
+      pre = current;
+      current = current->next;
     }
-    else if(&current == tail) {
+    if (current->next == NULL && current->in_file == filelist_position) {
+      *tail = current;
+    }
+    if(current == NULL) return;
 
-      *tail = pre->next;
-    }
-    else
-    {
-      pre->next = current->next;
-    }
+    pre->next = current->next;
     free(current);
+
+    current = pre->next;
   }
 }
 
@@ -243,8 +239,19 @@ void add_word(char* name, int fileindex, word_list* list) {
 
 
 void add_filelist(char * filename, listfile_entry * filelist, int index) {
-      strcpy(filelist[index].filename, filename);
-      filelist[index].loaded = 1;
+  int ok = 0;
+  if (index == -3) {
+    int i = 0;
+    while (i < MAX_FILES && ok == 0) {
+      if (strcmp(filelist[i].filename, filename) == 0) {
+        filelist[i].loaded = 1;
+        ok = 1;
+      }
+      i++;
+    }
+  }
+  strcpy(filelist[index].filename, filename);
+  filelist[index].loaded = 1;
 }
 
 
@@ -252,18 +259,22 @@ void add_filelist(char * filename, listfile_entry * filelist, int index) {
 	returns:
 		-2: if filelist full
 		-1: if file already present in filelist
+    -3: if file present but not loaded
 		else:
 			free index if free space
 */
-int find_free_index(listfile_entry * list, char* word) {
+int find_free_index(listfile_entry * list, char* filename) {
 
 	int index = 0;
 
 	while(index < MAX_FILES) {
-		if(strcmp(list[index].filename, word) == 0) {
+		if(strcmp(list[index].filename, filename) == 0 && list[index].loaded == 1 ) {
 			return -1;
 		}
-		if(list[index].loaded == 0) {
+    else if(strcmp(list[index].filename, filename) == 0 && list[index].loaded == 0) {
+      return -3;
+    }
+    else if(list[index].loaded == 0) {
 			return index;
 		}
 		index++;

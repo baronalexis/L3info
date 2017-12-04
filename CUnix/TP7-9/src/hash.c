@@ -57,7 +57,6 @@ int search_word(char word[], listfile_entry * filelist, hash_table * htable_ptr)
   word_entry * current_word = list.first_word;
 
   if(current_word == NULL) {
-      printf("This word isn't loaded\n");
       return found;
   } else {
     while (current_word != NULL) {

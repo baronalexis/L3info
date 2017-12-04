@@ -82,6 +82,7 @@ int add_file(char filename[],listfile_entry * filelist, hash_table * htable_ptr)
   }
 
   add_filelist(filename, filelist, index);
+
   while (fscanf(file, "%s", buffer) == 1) {
     for(int i = 0; buffer[i]; i++){
       buffer[i] = tolower(buffer[i]);
@@ -239,17 +240,6 @@ void add_word(char* name, int fileindex, word_list* list) {
 
 
 void add_filelist(char * filename, listfile_entry * filelist, int index) {
-  int ok = 0;
-  if (index == -3) {
-    int i = 0;
-    while (i < MAX_FILES && ok == 0) {
-      if (strcmp(filelist[i].filename, filename) == 0) {
-        filelist[i].loaded = 1;
-        ok = 1;
-      }
-      i++;
-    }
-  }
   strcpy(filelist[index].filename, filename);
   filelist[index].loaded = 1;
 }
@@ -259,7 +249,6 @@ void add_filelist(char * filename, listfile_entry * filelist, int index) {
 	returns:
 		-2: if filelist full
 		-1: if file already present in filelist
-    -3: if file present but not loaded
 		else:
 			free index if free space
 */
@@ -271,9 +260,6 @@ int find_free_index(listfile_entry * list, char* filename) {
 		if(strcmp(list[index].filename, filename) == 0 && list[index].loaded == 1 ) {
 			return -1;
 		}
-    else if(strcmp(list[index].filename, filename) == 0 && list[index].loaded == 0) {
-      return -3;
-    }
     else if(list[index].loaded == 0) {
 			return index;
 		}

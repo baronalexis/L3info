@@ -85,14 +85,21 @@ int add_file(char filename[], listfile_entry * filelist, hash_table * htable_ptr
 
     add_filelist(filename, filelist, index);
 
+
     while (fscanf(file, "%s", buffer) == 1) {
-        for(i = 0; buffer[i]; i++){
+        int digit = 0;
+        for(i = 0; buffer[i]; i++) {
             buffer[i] = tolower(buffer[i]);
+            if(isdigit(buffer[i])) {
+              digit = 1;
+            }
         }
-        int hash = hashcode(buffer, MAX_ENTRIES);
-        int word_loaded = is_word_loaded(buffer, index, &(htable_ptr->htable[hash]));
-        if(word_loaded == 0) {
-            add_word(buffer, index, &(htable_ptr->htable[hash]));
+        if (!digit) {
+          int hash = hashcode(buffer, MAX_ENTRIES);
+          int word_loaded = is_word_loaded(buffer, index, &(htable_ptr->htable[hash]));
+          if(word_loaded == 0) {
+              add_word(buffer, index, &(htable_ptr->htable[hash]));
+          }
         }
     }
 

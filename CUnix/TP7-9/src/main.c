@@ -51,9 +51,6 @@ int main()
     case 1:
       fprintf(stderr, "Enter the file name:\n");
       scanf("%s", str);
-      if(strstr(str, ".txt") == NULL){
-        strcat(strtok(str, "\n"), ".txt");
-      }
 
       ret = add_file(str, filelist, hashtable);
 
@@ -77,9 +74,6 @@ int main()
     case 2:
       fprintf(stderr, "Enter the word you are looking for:\n");
       scanf("%s", str);
-      if(strstr(str, ".txt") == NULL){
-        strcat(strtok(str, "\n"), ".txt");
-      }
       ret = search_word(str, filelist, hashtable);
       if (ret == 0) {
         printf("Word not found !\n");

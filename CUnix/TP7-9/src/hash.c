@@ -45,7 +45,7 @@ int search_word(char word[], listfile_entry * filelist, hash_table * htable_ptr)
     for(i = 0; word[i]; i++){
         word[i] = tolower(word[i]);
     }
-    int hash = hashcode(word, MAX_LENGTH);
+    int hash = hashcode(word, MAX_ENTRIES);
 
     int file_indexes[MAX_ENTRIES];
 
@@ -120,8 +120,8 @@ void free_table(hash_table * htable_ptr) {
             head = head->next;
             free(tmp);
         }
+        //free();
     }
     free(htable_ptr);
 
 }
-

@@ -251,7 +251,6 @@ void remove_words_from_file(word_entry **head, word_entry **tail, int filelist_p
         *head = current->next;
         free(current);
         current = *head;
-
     }
 
     while(current != NULL) {

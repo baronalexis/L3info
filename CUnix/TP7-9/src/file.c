@@ -89,7 +89,7 @@ int add_file(char filename[], listfile_entry * filelist, hash_table * htable_ptr
         for(i = 0; buffer[i]; i++){
             buffer[i] = tolower(buffer[i]);
         }
-        int hash = hashcode(buffer, MAX_LENGTH);
+        int hash = hashcode(buffer, MAX_ENTRIES);
         int word_loaded = is_word_loaded(buffer, index, &(htable_ptr->htable[hash]));
         if(word_loaded == 0) {
             add_word(buffer, index, &(htable_ptr->htable[hash]));
@@ -186,7 +186,6 @@ int is_word_loaded(char word[], int index, word_list* list) {
 void add_word(char* name, int fileindex, word_list* list) {
 
     word_entry * newelt = (word_entry*)malloc(sizeof(word_entry));
-    word_entry * prev = (word_entry*)malloc(sizeof(word_entry));
 
     if(newelt != NULL) {
         strcpy(newelt->word, name);

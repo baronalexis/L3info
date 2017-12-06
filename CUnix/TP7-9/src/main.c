@@ -18,8 +18,13 @@ int main()
   // create filelist array
   listfile_entry *filelist = create_filelist(MAX_FILES);
 
+  int i;
   int ret;
   char str[50];
+  char word[50];
+  char *array[3];
+
+
 
 
   // display menu
@@ -36,7 +41,7 @@ int main()
     int choice;
     while (1) {
       fprintf(stderr, "Your choice ? ");
-      scanf("%d", & choice);
+      scanf("%d", &choice);
       if (choice >= 0 && choice <= nbchoices) { break; }
       fprintf(stderr, "\nError %d is an incorrect choice\n", choice);
     }
@@ -44,7 +49,6 @@ int main()
 
     fprintf(stderr, "-------------------------------------------------\n");
 
-    // TO BE COMPLETED
 
     switch (choice) {
       // Load a file in dictionary
@@ -73,9 +77,56 @@ int main()
       // Search a word in dictionary
     case 2:
       fprintf(stderr, "Enter the word you are looking for:\n");
-      scanf("%s", str);
-      ret = search_word(str, filelist, hashtable);
-      if (ret == 0) {
+
+      fgetc(stdin);
+      fgets(word, sizeof word, stdin);
+
+      if ((strlen(word) > 0) && (word[strlen (word) - 1] == '\n')) {
+        word[strlen (word) - 1] = '\0';
+      }
+
+
+      if(strstr(word, " AND ") != NULL || strstr(word, " OR ") != NULL || strstr(word, "NOT ") != NULL) {
+        char *p = strtok (word, " ");
+        while (p != NULL)
+        {
+            array[i++] = p;
+            p = strtok (NULL, " ");
+        }
+
+        if(strcmp(array[1], "AND") == 0) {
+          if(search_word(array[0], filelist, hashtable) == 1 && search_word(array[2], filelist, hashtable) == 1) {
+            printf("These are the files having %s and %s\n", array[0], array[2]);
+            break;
+          }
+          else {
+            printf("Any of the loaded files has %s and %s\n", array[0], array[2]);
+            break;
+          }
+        }
+        else if(strcmp(array[1], "OR") == 0) {
+          if(search_word(array[0], filelist, hashtable) == 1 || search_word(array[2], filelist, hashtable) == 1) {
+            printf("These are the files having %s or %s\n", array[0], array[2]);
+            break;
+          }
+          else {
+            printf("Any of the loaded files has %s or %s\n", array[0], array[2]);
+            break;
+          }
+        }
+        else if(strcmp(array[0], "NOT") == 0) {
+          if(search_word(array[1], filelist, hashtable) == 1) {
+            printf("Non\n");
+            break;
+          }
+          else {
+            printf("Oui\n");
+            break;
+          }
+        }
+      }
+
+      else if (search_word(word, filelist, hashtable) == 0) {
         printf("Word not found !\n");
       }
       break;
@@ -83,7 +134,6 @@ int main()
       // Remove file from dictionary
     case 3:
       printf("This are the loaded files: \n");
-      //function displaying all the loaded files
       display_loaded_files(filelist);
       printf("Enter the file you want to remove:\n");
       scanf("%s", str);

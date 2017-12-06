@@ -41,15 +41,16 @@ hash_table *create_table(){
    returns : true if found, false otherwise
 */
 int search_word(char word[], listfile_entry * filelist, hash_table * htable_ptr) {
+
     int i = 0;
     for(i = 0; word[i]; i++){
         word[i] = tolower(word[i]);
     }
     int hash = hashcode(word, MAX_ENTRIES);
 
-    int file_indexes[MAX_ENTRIES];
+    int file_indexes[MAX_FILES];
 
-    for(i = 0; i < MAX_ENTRIES; i++) {
+    for(i = 0; i < MAX_FILES; i++) {
         file_indexes[i] = 0;
     }
     int found = 0;
@@ -71,9 +72,9 @@ int search_word(char word[], listfile_entry * filelist, hash_table * htable_ptr)
     }
 
     if (found) {
-        for (i = 0; i < MAX_ENTRIES; i++) {
+        for (i = 0; i < MAX_FILES; i++) {
             if(file_indexes[i] != 0) {
-                printf("Found %d times in %s\n", file_indexes[i], filelist[i].filename);
+                printf("Word(%s) found %d times in File(%s)\n", word, file_indexes[i], filelist[i].filename);
             }
         }
     }
@@ -120,8 +121,8 @@ void free_table(hash_table * htable_ptr) {
             head = head->next;
             free(tmp);
         }
-        //free();
     }
+    free(htable_ptr->htable);
     free(htable_ptr);
 
 }

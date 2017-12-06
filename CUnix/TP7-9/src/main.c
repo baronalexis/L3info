@@ -115,14 +115,8 @@ int main()
           }
         }
         else if(strcmp(array[0], "NOT") == 0) {
-          if(search_word(array[1], filelist, hashtable) == 1) {
-            printf("Non\n");
-            break;
-          }
-          else {
-            printf("Oui\n");
-            break;
-          }
+          search_word_not(array[1], filelist, hashtable);
+          break;
         }
       }
 

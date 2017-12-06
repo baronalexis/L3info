@@ -46,6 +46,12 @@ search_word(char word[],
 	    listfile_entry * filelist,
 	    hash_table * htable_ptr);
 
+void
+search_word_not(char word[],
+	    listfile_entry * filelist,
+	    hash_table * htable_ptr);
+
+
 // print table contents
 void
 print_table(hash_table * htable_ptr,

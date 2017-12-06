@@ -81,6 +81,48 @@ int search_word(char word[], listfile_entry * filelist, hash_table * htable_ptr)
     return found;
 }
 
+void search_word_not(char word[], listfile_entry * filelist, hash_table * htable_ptr) {
+
+      int i = 0;
+      for(i = 0; word[i]; i++){
+          word[i] = tolower(word[i]);
+      }
+      int hash = hashcode(word, MAX_ENTRIES);
+
+      int file_indexes[MAX_FILES];
+
+      for(i = 0; i < MAX_FILES; i++) {
+          file_indexes[i] = 0;
+      }
+
+      word_list list = (htable_ptr->htable)[hash];
+      word_entry * current_word = list.first_word;
+
+      if(current_word == NULL) {
+        for (i = 0; i < MAX_FILES; i++) {
+            if(file_indexes[i] == 0 && filelist[i].loaded == 1) {
+                printf("Word(%s) not in File(%s)\n", word, filelist[i].filename);
+            }
+        }
+        return;
+      }
+      else {
+          while (current_word != NULL) {
+              if (strcmp(current_word->word,word) == 0) {
+                  file_indexes[current_word->in_file] = current_word->times;
+              }
+              current_word = current_word->next;
+          }
+      }
+      for (i = 0; i < MAX_FILES; i++) {
+          if(file_indexes[i] == 0 && filelist[i].loaded == 1) {
+              printf("Word(%s) not in File(%s)\n", word, filelist[i].filename);
+          }
+      }
+}
+
+
+
 /**
    print table contents
 
